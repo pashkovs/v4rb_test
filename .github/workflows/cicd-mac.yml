@@ -21,4 +21,7 @@ jobs:
       - 
         name: Install
         run: sudo installer -pkg /Volumes/v4rb_x64_14_mac.dmg/v4rb.pkg -target /
+      - 
+          name: Run Test App
+          run: mac/TestProjectConsole
 
