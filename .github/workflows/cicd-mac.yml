@@ -1,0 +1,24 @@
+name: cd
+
+on:
+  push:
+  workflow_dispatch:
+    
+jobs:
+  cd:
+    name: CD
+    runs-on: macos-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      - 
+        name: Download
+        run: curl https://valentina-db.com/download/release/mac_64/v4rb_x64_14_mac.dmg -o v4rb_x64_14_mac.dmg
+      - 
+        name: Mount
+        run: hdiutil attach v4rb_x64_14_mac.dmg
+      - 
+        name: Install
+        run: sudo installer -pkg /Volumes/v4rb_x64_14_mac.dmg/v4rb.pkg -target /
+
