@@ -3,7 +3,7 @@
 set -e
 
 # Download the latest version of the V4RB for macOS
-curl https://valentina-db.com/download/prev_releases/14.1.1/mac_64/ -o v4rb_x64_14_mac.dmg
+curl https://valentina-db.com/download/prev_releases/14.1.1/mac_64/v4rb_x64_14_mac.dmg
 
 # Mount the downloaded disk image
 hdiutil attach v4rb_x64_14_mac.dmg
