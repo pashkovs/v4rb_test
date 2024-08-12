@@ -20,12 +20,12 @@ DEB_FILE="v4rb_armhf_32_${MAJOR_VERSION}_lin.deb"
 curl "https://valentina-db.com/download/prev_releases/$VERSION/lin_arm_32/$DEB_FILE" -o $DEB_FILE
 
 # Install the V4RB package
-sudo apt install ./$DEB_FILE
+apt install ./$DEB_FILE
 
 V4RB_INSTALL_DIR="/opt/V4RB"
 
 # ValentinaPlugin.xojo_plugin is just ZIP, so we need to unzip it to a subfolder
-sudo unzip "$V4RB_INSTALL_DIR/ValentinaPlugin.xojo_plugin" -d "$V4RB_INSTALL_DIR/ValentinaPlugin"
+unzip "$V4RB_INSTALL_DIR/ValentinaPlugin.xojo_plugin" -d "$V4RB_INSTALL_DIR/ValentinaPlugin"
 
 # Copy the V4RB dylib to the test project
 cp "$V4RB_INSTALL_DIR/ValentinaPlugin/ValentinaPlugin.xojo_plugin/Valentina/Build Resources/Linux ARM/v4rb_armhf_32_release.so" 'linux/armhf/TestProjectConsole/TestProjectConsole Libs'
