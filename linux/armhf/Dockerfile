@@ -2,11 +2,9 @@
 FROM arm32v7/ubuntu:latest
 
 # Install necessary dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
+RUN apt-get install -y \
     curl \
-    unzip \
-    && rm -rf /var/lib/apt/lists/*
+    unzip
 
 # Copy your script into the container
 COPY v4rb_install_test_linux_armhf.sh /usr/local/bin/v4rb_install_test_linux_armhf.sh
