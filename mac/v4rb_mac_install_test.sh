@@ -39,6 +39,9 @@ OUTPUT=$(mac/TestProjectConsole/TestProjectConsole)
 # Extract the Valentina Version from the output using awk
 VAL_VERSION=$(echo "$OUTPUT" | awk -F ': ' '/Valentina Version:/{print $2}' | xargs)
 
+echo "Valentina Version: $VAL_VERSION"
+echo "Expected Version: $VERSION"
+
 # Compare the extracted version with the passed parameter
 if [ "$VAL_VERSION" != "$VERSION" ]; then
     echo "Error: Valentina Version ($VAL_VERSION) does not match the specified version ($VERSION)."
