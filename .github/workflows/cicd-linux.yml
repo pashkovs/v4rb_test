@@ -28,8 +28,8 @@ jobs:
         name: Build and run ARM container
         run: |
           docker buildx create --use
-          docker buildx build --platform linux/arm/v7 -t v4rb_armhf_test --load .
-          docker run --rm v4rb_armhf_test linux/armhf/v4rb_install_test_linux_armhf.sh ${{ github.event.inputs.version }}
+          docker buildx build --platform linux/arm/v7 -t v4rb_arm32_test --load .
+          docker run --rm v4rb_arm32_test ${{ github.event.inputs.version }}
 
   v4rb_install_test_linux_64:
     name: v4rb_install_test_linux_64
