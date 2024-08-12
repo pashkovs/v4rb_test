@@ -38,7 +38,7 @@ docker buildx build --platform linux/arm/v7 -t v4rb_armhf_test --load linux/armh
 echo "Running the V4RB application in container..."
 
 # Run the container and capture the output
-OUTPUT=$(docker run --rm --platform linux/arm/v7 v4rb_armhf_test $VERSION)
+docker run --rm --platform linux/arm/v7 v4rb_armhf_test $VERSION
 
 # Extract the Valentina Version from the output using awk
 VAL_VERSION=$(echo "$OUTPUT" | awk -F ': ' '/Valentina Version:/{print $2}' | xargs)
