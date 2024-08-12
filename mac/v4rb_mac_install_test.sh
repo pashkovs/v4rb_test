@@ -34,4 +34,14 @@ unzip "$V4RB_INSTALL_DIR/ValentinaPlugin.xojo_plugin" -d "$V4RB_INSTALL_DIR/Vale
 cp "$V4RB_INSTALL_DIR/ValentinaPlugin/ValentinaPlugin.xojo_plugin/Valentina/Build Resources/Mac Universal/v4rb_cocoa_64.dylib" 'mac/TestProjectConsole/TestProjectConsole Libs'
 
 # Run the V4RB application
-mac/TestProjectConsole/TestProjectConsole
+# Run the V4RB application and capture the output
+OUTPUT=$(mac/TestProjectConsole/TestProjectConsole)
+
+# Extract the Valentina Version from the output using awk
+VAL_VERSION=$(echo "$OUTPUT" | awk -F ': ' '/Valentina Version:/{print $2}')
+
+# Compare the extracted version with the passed parameter
+if [ "$VAL_VERSION" != "$VERSION" ]; then
+    echo "Error: Valentina Version ($VAL_VERSION) does not match the specified version ($VERSION)."
+    exit 1
+fi
