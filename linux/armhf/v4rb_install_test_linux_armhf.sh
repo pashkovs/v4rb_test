@@ -32,6 +32,8 @@ sudo unzip "$V4RB_INSTALL_DIR/ValentinaPlugin.xojo_plugin" -d "$V4RB_INSTALL_DIR
 # Copy the V4RB dylib to the test project
 cp "$V4RB_INSTALL_DIR/ValentinaPlugin/ValentinaPlugin.xojo_plugin/Valentina/Build Resources/Linux ARM/v4rb_armhf_32_release.so" 'linux/armhf/TestProjectConsole/TestProjectConsole Libs'
 
+docker run --privileged --rm tonistiigi/binfmt --install all
+
 docker buildx create \
   --use \
   --name container \
@@ -47,7 +49,7 @@ docker buildx build --platform linux/arm/v7 -t localhost:5000/v4rb/v4rb_armhf_te
 echo "Running the V4RB application in container..."
 
 # Run the container and capture the output
-OUTPUT=$(docker run --platform linux/arm/v7 localhost:5000/v4rb/v4rb_armhf_test)
+OUTPUT=$(docker run --rm --platform linux/arm/v7 localhost:5000/v4rb/v4rb_armhf_test)
 
 # Extract the Valentina Version from the output using awk
 VAL_VERSION=$(echo "$OUTPUT" | awk -F ': ' '/Valentina Version:/{print $2}' | xargs)
