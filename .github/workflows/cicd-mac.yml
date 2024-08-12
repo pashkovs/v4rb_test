@@ -3,6 +3,10 @@ name: cd
 on:
   push:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number'
+        required: true
     
 jobs:
   cd:
@@ -14,4 +18,4 @@ jobs:
         uses: actions/checkout@v4
       - 
         name: Run Script
-        run: mac/v4rb_mac_install_test.sh
+        run: mac/v4rb_mac_install_test.sh ${{ github.event.inputs.version }}
