@@ -9,6 +9,28 @@ on:
     
 jobs:
 
+  v4rb_install_test_linux_arm_32:
+    name: v4rb_install_test_linux_arm_32
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v4
+      - 
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm
+      - 
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - 
+        name: Build and run ARM container
+        run: |
+          docker buildx create --use
+          docker buildx build --platform linux/arm/v7 -t v4rb_armhf_test --load .
+          docker run --rm v4rb_armhf_test linux/armhf/v4rb_install_test_linux_armhf.sh ${{ github.event.inputs.version }}
+
   v4rb_install_test_linux_64:
     name: v4rb_install_test_linux_64
     runs-on: ubuntu-latest
