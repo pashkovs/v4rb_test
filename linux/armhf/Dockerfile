@@ -1,17 +1,14 @@
 # Use an ARM base image
 FROM arm32v7/ubuntu:latest
 
-# Install necessary dependencies
 RUN apt-get update && apt-get install -y \
-    curl \
-    unzip \
+    libglib2.0-0t64 \
+    libunwind8 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy your script into the container
-COPY v4rb_install_test_linux_armhf.sh /usr/local/bin/v4rb_install_test_linux_armhf.sh
+COPY TestProjectConsole/ /opt/TestProjectConsole
+COPY v4rb_armhf_32_lin.deb /opt/TestProjectConsole
 
-# Make the script executable
-RUN chmod +x /usr/local/bin/v4rb_install_test_linux_armhf.sh
+RUN dpkg -i /opt/TestProjectConsole/v4rb_armhf_32_lin.deb
 
-# Set the entrypoint to your script
-ENTRYPOINT ["/usr/local/bin/v4rb_install_test_linux_armhf.sh"]
+ENTRYPOINT ["/opt/TestProjectConsole/TestProjectConsole"]
