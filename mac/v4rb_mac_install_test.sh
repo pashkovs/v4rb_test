@@ -25,7 +25,7 @@ hdiutil attach "$DMG_FILE"
 # Install the V4RB package
 sudo installer -pkg "/Volumes/${DMG_FILE}/v4rb.pkg" -target /
 
-V4RB_INSTALL_DIR='/Users/Shared/Paradigma Software/V4RB_${MAJOR_VERSION}'
+V4RB_INSTALL_DIR="/Users/Shared/Paradigma Software/V4RB_${MAJOR_VERSION}"
 
 # ValentinaPlugin.xojo_plugin is just ZIP, so we need to unzip it to a subfolder
 unzip "$V4RB_INSTALL_DIR/ValentinaPlugin.xojo_plugin" -d "$V4RB_INSTALL_DIR/ValentinaPlugin"

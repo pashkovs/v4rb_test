@@ -1,7 +1,6 @@
 name: cd
 
 on:
-  push:
   workflow_dispatch:
     inputs:
       version:
