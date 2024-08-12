@@ -1,4 +1,4 @@
-name: cd
+name: v4rb_install_test
 
 on:
   workflow_dispatch:
@@ -8,8 +8,8 @@ on:
         required: true
     
 jobs:
-  cd:
-    name: CD
+  v4rb_install_test_mac:
+    name: v4rb_install_test_mac
     runs-on: macos-latest
     steps:
       -
