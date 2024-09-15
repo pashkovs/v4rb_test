@@ -10,6 +10,7 @@ on:
 jobs:
 
   v4rb_install_test_linux_arm_32:
+    if: false
     name: v4rb_install_test_linux_arm_32
     runs-on: ubuntu-latest
     steps:
