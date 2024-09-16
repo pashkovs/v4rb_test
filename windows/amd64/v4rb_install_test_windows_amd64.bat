@@ -22,13 +22,14 @@ powershell -Command "Invoke-WebRequest -Uri '%psexecUrl%' -OutFile '%psexecZipPa
 powershell -Command "Expand-Archive -Path '%psexecZipPath%' -DestinationPath '%psexecExtractPath%'"
 
 REM Construct the EXE file name
-set EXE_FILE=%TEMP%\v4rb_%MAJOR_VERSION%_win.exe
+set EXE_FILE=v4rb_%MAJOR_VERSION%_win.exe
+set EXE_PATH=%TEMP%/v4rb_%MAJOR_VERSION%_win.exe
 
 REM Download the specified VERSION of the V4RB for Windows
-powershell -Command "Invoke-WebRequest -Uri https://valentina-db.com/download/prev_releases/%VERSION%/win_32/%EXE_FILE% -OutFile %EXE_FILE%"
+powershell -Command "Invoke-WebRequest -Uri https://valentina-db.com/download/prev_releases/%VERSION%/win_32/%EXE_FILE% -OutFile %EXE_PATH%"
 
 REM Install the V4RB package silently
-"%psexecExtractPath%\PsExec.exe" -accepteula -h "%EXE_FILE%" /SILENT /NORESTART
+"%psexecExtractPath%\PsExec.exe" -accepteula -h "%EXE_PATH%" /SILENT /NORESTART
 
 REM Define the Valentina plugin default installation directory
 set V4RB_INSTALL_DIR=%USERPROFILE%\Documents\Paradigma Software\V4RB_%MAJOR_VERSION%
