@@ -18,3 +18,7 @@ jobs:
       - 
         name: Run Script
         run: windows/amd64/v4rb_install_test_windows_amd64.bat ${{ github.event.inputs.version }}
+      - name: Verify PATH after installation
+        run: |
+          echo "Current PATH is:"
+          echo $env:PATH

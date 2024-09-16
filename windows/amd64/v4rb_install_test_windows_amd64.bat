@@ -43,7 +43,7 @@ copy "%V4RB_INSTALL_DIR%\ValentinaPlugin\ValentinaPlugin.xojo_plugin\Valentina\B
 
 REM Run the V4RB application and capture the output
 set OUTPUT_FILE=output.txt
-set PATH=%PATH%;%ProgramFiles%\Paradigma Software\vcomponents_win_vc\
+REM set PATH=%PATH%;%ProgramFiles%\Paradigma Software\vcomponents_win_vc\
 
 echo %PATH%
 
