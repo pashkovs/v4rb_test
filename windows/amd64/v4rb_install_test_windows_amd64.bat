@@ -60,6 +60,11 @@ echo "Expected Version: <%VERSION%>"
 for /f "delims=" %%A in ("%VAL_VERSION%") do set "VAL_VERSION=%%A"
 for /f "delims=" %%A in ("%VERSION%") do set "VERSION=%%A"
 
+:: Debugging function to print ASCII values of the characters in the variable
+call :print_ascii "%VAL_VERSION%"
+call :print_ascii "%VERSION%"
+
+
 REM Compare the extracted version with the passed parameter
 if not "%VAL_VERSION%"=="%VERSION%" (
     echo Error: Valentina Version (%VAL_VERSION%) does not match the specified version (%VERSION%).
@@ -67,3 +72,31 @@ if not "%VAL_VERSION%"=="%VERSION%" (
 )
 
 endlocal
+
+:: End of main script
+goto :EOF
+
+:: Function to print ASCII codes of each character in the variable
+:print_ascii
+echo Debugging ASCII for: %1
+setlocal enabledelayedexpansion
+set "str=%~1"
+
+:: Loop through each character in the string and print its ASCII code
+for /l %%i in (0, 1, 255) do (
+    for /f %%A in ('cmd /c exit %%i') do (
+        set "ascii%%A=%%i"
+    )
+)
+
+set "len=0"
+:loop
+set "char=!str:~%len%,1!"
+if "!char!"=="" goto :done
+for %%A in (!char!) do set "code=!ascii%%A!"
+echo !code!  - "!char!"
+set /a len+=1
+goto :loop
+
+:done
+exit /b
