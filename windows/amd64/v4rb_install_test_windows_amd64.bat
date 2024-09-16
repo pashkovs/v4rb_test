@@ -15,7 +15,7 @@ for /f "tokens=1 delims=." %%a in ("%VERSION%") do set MAJOR_VERSION=%%a
 
 REM Construct the EXE file name
 set EXE_FILE=v4rb_%MAJOR_VERSION%_win.exe
-set EXE_PATH="%~dp0/v4rb_%MAJOR_VERSION%_win.exe"
+set EXE_PATH="%~dp0v4rb_%MAJOR_VERSION%_win.exe"
 
 REM Download the specified VERSION of the V4RB for Windows
 powershell -Command "Invoke-WebRequest -Uri https://valentina-db.com/download/prev_releases/%VERSION%/win_32/%EXE_FILE% -OutFile %EXE_PATH%"
