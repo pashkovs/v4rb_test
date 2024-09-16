@@ -56,8 +56,12 @@ set VAL_VERSION=%VAL_VERSION: =%
 echo "Valentina Version: <%VAL_VERSION%>"
 echo "Expected Version: <%VERSION%>"
 
+:: Strip any surrounding spaces and carriage return characters
+for /f "delims=" %%A in ("%VAL_VERSION%") do set "VAL_VERSION=%%A"
+for /f "delims=" %%A in ("%VERSION%") do set "VERSION=%%A"
+
 REM Compare the extracted version with the passed parameter
-if not %VAL_VERSION%==%VERSION% (
+if not "%VAL_VERSION%"=="%VERSION%" (
     echo Error: Valentina Version (%VAL_VERSION%) does not match the specified version (%VERSION%).
     exit /b 1
 )
