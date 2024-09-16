@@ -24,8 +24,10 @@ powershell -Command "Invoke-WebRequest -Uri https://valentina-db.com/download/pr
 
 REM Install the V4RB package silently
 
-#use powershell to run installer with 3 seconds timeout
 powershell -Command "Start-Process -FilePath '%EXE_PATH%' -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -NoNewWindow -PassThru | Wait-Process -Timeout 30"
+
+REM installer changes PATH variable, so we need to reload it
+refreshenv
 
 REM Define the Valentina plugin default installation directory
 set V4RB_INSTALL_DIR=%USERPROFILE%\Documents\Paradigma Software\V4RB_%MAJOR_VERSION%
