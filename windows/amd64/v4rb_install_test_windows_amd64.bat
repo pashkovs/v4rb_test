@@ -22,7 +22,7 @@ powershell -Command "Invoke-WebRequest -Uri '%psexecUrl%' -OutFile '%psexecZipPa
 powershell -Command "Expand-Archive -Path '%psexecZipPath%' -DestinationPath '%psexecExtractPath%'"
 
 REM Construct the EXE file name
-set EXE_FILE=v4rb_%MAJOR_VERSION%_win.exe
+set EXE_FILE=%TEMP%\v4rb_%MAJOR_VERSION%_win.exe
 
 REM Download the specified VERSION of the V4RB for Windows
 powershell -Command "Invoke-WebRequest -Uri https://valentina-db.com/download/prev_releases/%VERSION%/win_32/%EXE_FILE% -OutFile %EXE_FILE%"
