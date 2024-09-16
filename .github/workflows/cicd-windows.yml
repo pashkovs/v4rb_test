@@ -1,0 +1,20 @@
+name: v4rb_install_test_windows
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number'
+        required: true
+    
+jobs:
+  v4rb_install_test_windows_amd64:
+    name: v4rb_install_test_windows_amd64
+    runs-on: windows-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      - 
+        name: Run Script
+        run: windows/amd64/v4rb_install_test_windows_amd64.bat ${{ github.event.inputs.version }}
