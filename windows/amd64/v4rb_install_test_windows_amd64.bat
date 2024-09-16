@@ -22,15 +22,15 @@ powershell -Command "Invoke-WebRequest -Uri https://valentina-db.com/download/pr
 
 REM Install the V4RB package silently
 
-powershell -Command `
-    $process = Start-Process '%EXE_PATH%' -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -NoNewWindow -PassThru; `
-    $process | Wait-Process -Timeout 30; `
-    if ($process.HasExited -eq $false) { `
-        Write-Host 'Process exceeded timeout. Killing process...'; `
-        Stop-Process -Id $process.Id; `
-    } else { `
-        Write-Host 'Installer completed successfully.'; `
-    }
+powershell -Command ^
+    "$process = Start-Process '%EXE_PATH%' -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -NoNewWindow -PassThru; ^
+    $process | Wait-Process -Timeout 30; ^
+    if ($process.HasExited -eq $false) { ^
+        Write-Host 'Process exceeded timeout. Killing process...'; ^
+        Stop-Process -Id $process.Id; ^
+    } else { ^
+        Write-Host 'Installer completed successfully.'; ^
+    }"
 
 REM Define the Valentina plugin default installation directory
 set V4RB_INSTALL_DIR=%USERPROFILE%\Documents\Paradigma Software\V4RB_%MAJOR_VERSION%
