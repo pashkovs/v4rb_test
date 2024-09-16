@@ -1,4 +1,4 @@
-name: v4rb_install_test_mac
+name: valentina_install_test_mac
 
 on:
   workflow_dispatch:
@@ -18,3 +18,14 @@ jobs:
       - 
         name: Run Script
         run: mac/v4rb_mac_install_test.sh ${{ github.event.inputs.version }}
+
+  vserver_install_test_mac:
+    name: v4rb_install_test_mac
+    runs-on: macos-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      - 
+        name: Run Script
+        run: mac/vserver_mac_install_test.sh ${{ github.event.inputs.version }}
