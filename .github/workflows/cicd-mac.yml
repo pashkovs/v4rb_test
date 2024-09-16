@@ -20,7 +20,7 @@ jobs:
         run: mac/v4rb_mac_install_test.sh ${{ github.event.inputs.version }}
 
   vserver_install_test_mac:
-    name: v4rb_install_test_mac
+    name: vserver_install_test_mac
     runs-on: macos-latest
     steps:
       -
