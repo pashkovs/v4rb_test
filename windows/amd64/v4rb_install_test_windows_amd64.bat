@@ -21,10 +21,9 @@ REM Download the specified VERSION of the V4RB for Windows
 powershell -Command "Invoke-WebRequest -Uri https://valentina-db.com/download/prev_releases/%VERSION%/win_32/%EXE_FILE% -OutFile %EXE_PATH%"
 
 REM Install the V4RB package silently
-%EXE_PATH% /SILENT /NORESTART /CURRENTUSER /SUPPRESSMSGBOXES /LOG="%TEMP%/v4rb_log.txt"
 
-REM Print the contents of the log file
-type "%TEMP%/v4rb_log.txt"
+REM use start /wait to wait for the installation to complete
+start /wait %EXE_PATH% /SILENT /NORESTART /CURRENTUSER /SUPPRESSMSGBOXES
 
 REM Define the Valentina plugin default installation directory
 set V4RB_INSTALL_DIR=%USERPROFILE%\Documents\Paradigma Software\V4RB_%MAJOR_VERSION%
