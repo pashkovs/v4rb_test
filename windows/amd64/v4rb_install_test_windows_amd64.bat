@@ -22,12 +22,9 @@ powershell -Command "Invoke-WebRequest -Uri https://valentina-db.com/download/pr
 
 REM Install the V4RB package silently
 
-REM use start /wait to wait for the installation to complete
-start /wait %EXE_FILE% /SILENT /NORESTART /CURRENTUSER /SUPPRESSMSGBOXES /DIR="%INSTALL_DIR%"
-
 powershell -Command ^
     $process = Start-Process '%EXE_PATH%' -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -NoNewWindow -PassThru; ^
-    $process | Wait-Process -Timeout 100; ^
+    $process | Wait-Process -Timeout 60; ^
     if ($process.HasExited -eq $false) { ^
         echo 'Process exceeded timeout. Killing process...'; ^
         Stop-Process -Id $process.Id; ^
