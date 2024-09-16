@@ -17,23 +17,15 @@ for /f "tokens=1 delims=." %%a in ("%VERSION%") do set MAJOR_VERSION=%%a
 
 REM Construct the EXE file name
 set EXE_FILE=v4rb_%MAJOR_VERSION%_win.exe
-set EXE_PATH="%~dp0v4rb_%MAJOR_VERSION%_win.exe"
+set EXE_PATH=%~dp0v4rb_%MAJOR_VERSION%_win.exe
 
 REM Download the specified VERSION of the V4RB for Windows
 powershell -Command "Invoke-WebRequest -Uri https://valentina-db.com/download/prev_releases/%VERSION%/win_32/%EXE_FILE% -OutFile %EXE_PATH%"
 
 REM Install the V4RB package silently
 
-powershell -ExecutionPolicy Bypass -Command ^
-(
-    $process = Start-Process -FilePath "%EXE_PATH%" -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -NoNewWindow -PassThru
-    if ($process.WaitForExit(30000)) {
-        Write-Host "Command executed successfully."
-    } else {
-        Write-Host "Command timed out. Terminating process..."
-        Stop-Process -ProcessId $process.Id
-    }
-)
+#use powershell to run installer with 3 seconds timeout
+powershell -Command "Start-Process -FilePath '%EXE_PATH%' -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -NoNewWindow -PassThru | Wait-Process -Timeout 30"
 
 REM Define the Valentina plugin default installation directory
 set V4RB_INSTALL_DIR=%USERPROFILE%\Documents\Paradigma Software\V4RB_%MAJOR_VERSION%
