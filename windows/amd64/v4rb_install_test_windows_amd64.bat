@@ -43,7 +43,7 @@ copy "%V4RB_INSTALL_DIR%\ValentinaPlugin\ValentinaPlugin.xojo_plugin\Valentina\B
 
 REM Run the V4RB application and capture the output
 set OUTPUT_FILE=output.txt
-REM set PATH=%PATH%;%ProgramFiles%\Paradigma Software\vcomponents_win_vc\
+set PATH=%PATH%;%ProgramFiles%\Paradigma Software\vcomponents_win_vc\
 
 echo %PATH%
 
@@ -57,7 +57,7 @@ echo Valentina Version: '%VAL_VERSION%'
 echo Expected Version: '%VERSION%'
 
 REM Compare the extracted version with the passed parameter
-if not "%VAL_VERSION%"=="%VERSION%" (
+if not %VAL_VERSION%==%VERSION% (
     echo Error: Valentina Version (%VAL_VERSION%) does not match the specified version (%VERSION%).
     exit /b 1
 )
