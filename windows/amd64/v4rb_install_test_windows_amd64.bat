@@ -53,8 +53,8 @@ REM Extract the Valentina Version from the output using findstr
 for /f "tokens=2 delims=:" %%a in ('findstr /C:"Valentina Version" %OUTPUT_FILE%') do set VAL_VERSION=%%a
 set VAL_VERSION=%VAL_VERSION: =%
 
-echo Valentina Version: '%VAL_VERSION%'
-echo Expected Version: '%VERSION%'
+echo "Valentina Version: <%VAL_VERSION%>"
+echo "Expected Version: <%VERSION%>"
 
 REM Compare the extracted version with the passed parameter
 if not %VAL_VERSION%==%VERSION% (
