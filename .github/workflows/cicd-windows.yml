@@ -1,4 +1,4 @@
-name: v4rb_install_test_windows
+name: valentina_install_test_windows
 
 on:
   workflow_dispatch:
@@ -9,6 +9,7 @@ on:
     
 jobs:
   v4rb_install_test_windows_amd64:
+    if: false
     name: v4rb_install_test_windows_amd64
     runs-on: windows-latest
     steps:
@@ -18,7 +19,13 @@ jobs:
       - 
         name: Run Script
         run: windows/amd64/v4rb_install_test_windows_amd64.bat ${{ github.event.inputs.version }}
-      - name: Verify PATH after installation
-        run: |
-          echo "Current PATH is:"
-          echo $env:PATH
+  vserver_install_test_windows_amd64:
+    name: vserver_install_test_windows_amd64
+    runs-on: windows-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      - 
+        name: Run Script
+        run: windows/amd64/vserver_install_test_windows_amd64.bat ${{ github.event.inputs.version }}
