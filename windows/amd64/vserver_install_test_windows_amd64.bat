@@ -24,6 +24,9 @@ REM Install the VServer package silently
 
 powershell -Command "Start-Process -FilePath '%EXE_PATH%' -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -NoNewWindow -PassThru | Wait-Process -Timeout 30"
 
+:: sleep for 30 seconds
+timeout /t 30
+
 REM VServer logs directory
 set VSERVER_LOGS_DIR="%ProgramFiles%\Paradigma Software\VServer x64\vlogs"
 
