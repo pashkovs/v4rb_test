@@ -24,11 +24,16 @@ sudo apt install ./$DEB_FILE
 
 VSERVER_LOGS_DIR="/opt/VServer/vlogs"
 
+sleep 30
+
+ls -l $VSERVER_LOGS_DIR
+
 # The server startup takes some time, so need to try again after delay
 
 attempt=0
 max_attempts=5
 log_found=false
+
 
 while [ $attempt -lt $max_attempts ]; do
     # Get the latest log file from the VServer logs directory with name starting with "vserver_" and ending with ".log"
