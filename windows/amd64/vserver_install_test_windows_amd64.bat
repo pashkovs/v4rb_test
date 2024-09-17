@@ -23,7 +23,7 @@ powershell -Command "Invoke-WebRequest -Uri https://valentina-db.com/download/pr
 
 REM Install the VServer package silently
 
-powershell -Command "Start-Process -FilePath '%EXE_PATH%' -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/LOG=%LOG_PATH' -NoNewWindow -PassThru | Wait-Process -Timeout 30"
+powershell -Command "Start-Process -FilePath '%EXE_PATH%' -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/LOG=%LOG_PATH%' -NoNewWindow -PassThru | Wait-Process -Timeout 30"
 
 :: sleep for 30 seconds
 timeout /t 30
