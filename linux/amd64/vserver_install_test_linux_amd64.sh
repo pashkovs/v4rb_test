@@ -28,6 +28,8 @@ VSERVER_LOGS_DIR="/opt/VServer/vlogs"
 VSERVER_LOG_FILE=$(ls -t "$VSERVER_LOGS_DIR"/vserver_*.log | head -n 1)
 
 echo "$VSERVER_LOG_FILE"
+sudo cat "$VSERVER_LOG_FILE"
+
 sudo awk -F ': ' '/vServer version/{print $2}' "$VSERVER_LOG_FILE" | xargs
 
 # Extract the Valentina Version from the log file using awk
