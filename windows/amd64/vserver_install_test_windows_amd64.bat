@@ -15,29 +15,20 @@ for /f "tokens=1 delims=." %%a in ("%VERSION%") do set MAJOR_VERSION=%%a
 
 REM Construct the EXE file name
 set EXE_FILE=vserver_x64_%MAJOR_VERSION%_win.exe
-set EXE_PATH=%~dp0%EXE_FILE%
-set LOG_PATH="%~dp0vserver_install.log"
-set INF_PATH="%~dp0vserver_install_options.inf"
+set EXE_PATH="%~dp0%EXE_FILE%"
 
 REM Download the specified VERSION of the VServer for Windows
 powershell -Command "Invoke-WebRequest -Uri https://valentina-db.com/download/prev_releases/%VERSION%/win_64/%EXE_FILE% -OutFile %EXE_PATH%"
 
 REM Install the VServer package silently
 
-powershell -Command "Start-Process -FilePath '%EXE_PATH%' -ArgumentList '/VERYSILENT',  '/NORESTART', '/LOG=%LOG_PATH%', '/TASKS=""' -NoNewWindow -PassThru | Wait-Process -Timeout 30"
+%EXE_PATH% /VERYSILENT /NORESTART /TASKS=""
 
 :: sleep for 30 seconds
 timeout /t 30
 
-type %LOG_PATH%
-
-powershell -Command "Get-Service VServer_x64"
-
 REM VServer logs directory
 set VSERVER_LOGS_DIR="%ProgramFiles%\Paradigma Software\VServer x64\vlogs"
-
-echo "VServer  directory"
-dir "%ProgramFiles%\Paradigma Software\VServer x64\"
 
 REM Get the latest log file from the VServer logs directory with name starting with "vserver_" and ending with ".log"
 for /f "delims=" %%a in ('dir /b /o-d %VSERVER_LOGS_DIR%\vserver_*.log') do set "VSERVER_LOG_FILE=%%a" & goto :next
