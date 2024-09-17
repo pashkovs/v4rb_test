@@ -9,7 +9,6 @@ on:
     
 jobs:
   v4rb_install_test_windows_amd64:
-    if: false
     name: v4rb_install_test_windows_amd64
     runs-on: windows-latest
     steps:
