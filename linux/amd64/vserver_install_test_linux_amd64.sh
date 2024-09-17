@@ -19,22 +19,35 @@ DEB_FILE="vserver_x64_${MAJOR_VERSION}_lin.deb"
 # Download the specified VERSION of the V4RB for macOS
 curl "https://valentina-db.com/download/prev_releases/$VERSION/lin_64/$DEB_FILE" -o $DEB_FILE
 
-# Install the V4RB package
+# Install the package
 sudo apt install ./$DEB_FILE
 
 VSERVER_LOGS_DIR="/opt/VServer/vlogs"
 
-# add sleep to wait for the server to start
-sleep 30
+# The server startup takes some time, so need to try again after delay
 
-# Get the latest log file from the VServer logs directory with name starting with "vserver_" and ending with ".log"
-VSERVER_LOG_FILE=$(ls -t "$VSERVER_LOGS_DIR"/vserver_*.log | head -n 1)
+attempt=0
+max_attempts=5
+log_found=false
 
-echo "$VSERVER_LOG_FILE"
-echo "---"
-sudo cat "$VSERVER_LOG_FILE"
-echo "---"
-sudo awk -F ': ' '/vServer version/{print $2}' "$VSERVER_LOG_FILE" | xargs
+while [ $attempt -lt $max_attempts ]; do
+    # Get the latest log file from the VServer logs directory with name starting with "vserver_" and ending with ".log"
+    VSERVER_LOG_FILE=$(ls -t "$VSERVER_LOGS_DIR"/vserver_*.log 2>/dev/null | head -n 1)
+
+    if [ -n "$VSERVER_LOG_FILE" ] && grep -q "Server started" "$VSERVER_LOG_FILE"; then
+        log_found=true
+        break
+    fi
+
+    echo "Log file not found or 'Server started' message not present. Retrying in 5 seconds..."
+    sleep 5
+    attempt=$((attempt + 1))
+done
+
+if [ "$log_found" = false ]; then
+    echo "Error: Server did not start successfully after $max_attempts attempts."
+    exit 1
+fi
 
 # Extract the Valentina Version from the log file using awk
 VAL_VERSION=$(sudo awk -F ': ' '/vServer version/{print $2}' "$VSERVER_LOG_FILE" | xargs)
@@ -45,11 +58,5 @@ echo "Expected Version: $VERSION"
 # Compare the extracted version with the passed parameter
 if [ "$VAL_VERSION" != "$VERSION" ]; then
     echo "Error: Valentina Version ($VAL_VERSION) does not match the specified version ($VERSION)."
-    exit 1
-fi
-
-# Find Server started message in the log file
-if ! grep -q "Server started" "$VSERVER_LOG_FILE"; then
-    echo "Error: Server did not start successfully."
     exit 1
 fi
