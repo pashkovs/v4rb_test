@@ -27,6 +27,8 @@ powershell -Command "Start-Process -FilePath '%EXE_PATH%' -ArgumentList '/SILENT
 :: sleep for 30 seconds
 timeout /t 30
 
+powershell -Command "Get-Service VServer_x64"
+
 REM VServer logs directory
 set VSERVER_LOGS_DIR="%ProgramFiles%\Paradigma Software\VServer x64\vlogs"
 
