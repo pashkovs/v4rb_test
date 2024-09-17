@@ -24,6 +24,9 @@ sudo apt install ./$DEB_FILE
 
 VSERVER_LOGS_DIR="/opt/VServer/vlogs"
 
+# add sleep to wait for the server to start
+sleep 5
+
 # Get the latest log file from the VServer logs directory with name starting with "vserver_" and ending with ".log"
 VSERVER_LOG_FILE=$(ls -t "$VSERVER_LOGS_DIR"/vserver_*.log | head -n 1)
 
