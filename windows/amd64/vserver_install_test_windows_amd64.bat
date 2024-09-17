@@ -17,13 +17,14 @@ REM Construct the EXE file name
 set EXE_FILE=vserver_x64_%MAJOR_VERSION%_win.exe
 set EXE_PATH=%~dp0%EXE_FILE%
 set LOG_PATH="%~dp0vserver_install.log"
+set INF_PATH="%~dp0vserver_install_options.inf"
 
 REM Download the specified VERSION of the VServer for Windows
 powershell -Command "Invoke-WebRequest -Uri https://valentina-db.com/download/prev_releases/%VERSION%/win_64/%EXE_FILE% -OutFile %EXE_PATH%"
 
 REM Install the VServer package silently
 
-powershell -Command "Start-Process -FilePath '%EXE_PATH%' -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/LOG=%LOG_PATH%' -NoNewWindow -PassThru | Wait-Process -Timeout 30"
+powershell -Command "Start-Process -FilePath '%EXE_PATH%' -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/LOG=%LOG_PATH%', 'LOADINF=%INF_PATH' -NoNewWindow -PassThru | Wait-Process -Timeout 30"
 
 :: sleep for 30 seconds
 timeout /t 30

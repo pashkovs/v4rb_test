@@ -1,0 +1,6 @@
+[Setup]
+Lang=default
+Dir=C:\Program Files\Paradigma Software\VServer x64
+Group=Paradigma Software\Valentina Server x64
+NoIcons=0
+Tasks=
