@@ -27,7 +27,8 @@ powershell -Command "Start-Process -FilePath '%EXE_PATH%' -ArgumentList '/SILENT
 REM VServer logs directory
 set VSERVER_LOGS_DIR="%ProgramFiles%\Paradigma Software\VServer x64\vlogs"
 
-dir %VSERVER_LOGS_DIR%
+echo "VServer  directory"
+dir "%ProgramFiles%\Paradigma Software\VServer x64\"
 
 REM Get the latest log file from the VServer logs directory with name starting with "vserver_" and ending with ".log"
 for /f "delims=" %%a in ('dir /b /o-d %VSERVER_LOGS_DIR%\vserver_*.log') do set "VSERVER_LOG_FILE=%%a" & goto :next
