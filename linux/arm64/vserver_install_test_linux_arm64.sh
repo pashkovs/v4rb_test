@@ -24,9 +24,7 @@ sudo apt install ./$DEB_FILE
 
 VSERVER_LOGS_DIR="/opt/VServer/vlogs"
 
-sleep 30
-
-ls -l $VSERVER_LOGS_DIR
+sleep 5
 
 # The server startup takes some time, so need to try again after delay
 
@@ -37,7 +35,7 @@ log_found=false
 
 while [ $attempt -lt $max_attempts ]; do
     # Get the latest log file from the VServer logs directory with name starting with "vserver_" and ending with ".log"
-    VSERVER_LOG_FILE=$(ls -t "$VSERVER_LOGS_DIR"/vserver_*.log 2>/dev/null | head -n 1)
+    VSERVER_LOG_FILE=$(sudo ls -t "$VSERVER_LOGS_DIR"/vserver_*.log 2>/dev/null | head -n 1)
 
     if [ -n "$VSERVER_LOG_FILE" ] && sudo grep -q "Server started" "$VSERVER_LOG_FILE"; then
         log_found=true
