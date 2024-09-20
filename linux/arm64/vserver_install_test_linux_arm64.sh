@@ -37,7 +37,7 @@ while [ $attempt -lt $max_attempts ]; do
     # Get the latest log file from the VServer logs directory
     VSERVER_LOG_FILE=$(sudo ls -t "$VSERVER_LOGS_DIR" 2>/dev/null | head -n 1)
 
-    if [ -n "$VSERVER_LOG_FILE" ] && sudo grep -q "Server started" "$VSERVER_LOG_FILE"; then
+    if [ -n "$VSERVER_LOG_FILE" ] && sudo grep -q "Server started" "$VSERVER_LOGS_DIR"/$VSERVER_LOG_FILE; then
         log_found=true
         break
     fi
