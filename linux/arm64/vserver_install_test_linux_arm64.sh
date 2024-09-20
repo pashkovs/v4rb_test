@@ -43,7 +43,6 @@ while [ $attempt -lt $max_attempts ]; do
     fi
 
     echo "Log file: $VSERVER_LOG_FILE"
-    sudo cat "$VSERVER_LOG_FILE"
     echo "Log file not found or 'Server started' message not present. Retrying in 5 seconds..."
     sleep 5
     attempt=$((attempt + 1))
