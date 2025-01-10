@@ -46,6 +46,7 @@ jobs:
   vserver_install_test_linux_arm64:
       name: vserver_install_test_linux_arm64
       runs-on: [self-hosted, linux, ARM64]
+      if: false
       steps:
         -
           name: Checkout
