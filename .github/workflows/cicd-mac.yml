@@ -8,6 +8,17 @@ on:
         required: true
     
 jobs:
+  vpython_install_test_mac:
+    name: vpython_install_test_mac
+    runs-on: macos-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      - 
+        name: Run Script
+        run: mac/vpython_install_test_mac.sh ${{ github.event.inputs.version }}
+
   v4rb_install_test_mac:
     name: v4rb_install_test_mac
     runs-on: macos-latest
