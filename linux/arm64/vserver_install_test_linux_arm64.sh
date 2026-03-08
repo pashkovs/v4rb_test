@@ -15,18 +15,16 @@ DEB_FILE="vserver_arm64_${MAJOR_VERSION}_lin.deb"
 curl "https://valentina-db.com/download/prev_releases/$VERSION/lin_arm_64/$DEB_FILE" -o $DEB_FILE
 # Install the package
 sudo apt install ./$DEB_FILE
-# Print installed VServer directory structure for debugging
-echo "::group::VServer directory structure"
-find /opt/VServer -ls 2>/dev/null
-echo "::endgroup::"
+# Wait for the first run to create the INI file, then restart
+sleep 10
+sudo systemctl restart vserver
+sleep 15
 
 VSERVER_LOGS_DIR="/opt/VServer/vlogs"
-sleep 5
 # The server startup takes some time, so need to try again after delay
 attempt=0
 max_attempts=5
 log_found=false
-cd $VSERVER_LOGS_DIR
 while [ $attempt -lt $max_attempts ]; do
     attempt=$((attempt + 1))
     echo "Attempt $attempt/$max_attempts..."
@@ -54,7 +52,6 @@ if [ "$log_found" = false ]; then
     echo "Error: Server did not start successfully after $max_attempts attempts."
     if [ -n "$VSERVER_LOG_FILE" ]; then
         echo "::group::VServer log contents"
-        sudo wc -l "$VSERVER_LOGS_DIR/$VSERVER_LOG_FILE"
         sudo cat "$VSERVER_LOGS_DIR/$VSERVER_LOG_FILE"
         echo "::endgroup::"
     fi
