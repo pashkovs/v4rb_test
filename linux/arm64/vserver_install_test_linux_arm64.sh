@@ -49,6 +49,8 @@ if [ "$log_found" = false ]; then
     echo "Error: Server did not start successfully after $max_attempts attempts."
     if [ -n "$VSERVER_LOG_FILE" ]; then
         echo "::group::VServer log contents"
+        sudo wc -l "$VSERVER_LOGS_DIR/$VSERVER_LOG_FILE"
+        sudo wc -c "$VSERVER_LOGS_DIR/$VSERVER_LOG_FILE"
         sudo cat "$VSERVER_LOGS_DIR/$VSERVER_LOG_FILE"
         echo "::endgroup::"
     fi
