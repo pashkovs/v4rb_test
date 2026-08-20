@@ -28,6 +28,11 @@ jobs:
         name: Checkout
         uses: actions/checkout@v4
       -
+        name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      -
         name: Run Script
         run: linux/amd64/vpython_install_test_linux_amd64.sh ${{ github.event.inputs.version }}
 
