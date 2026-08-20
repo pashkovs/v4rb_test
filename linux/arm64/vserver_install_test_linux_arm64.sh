@@ -13,8 +13,12 @@ MAJOR_VERSION=$(echo "$VERSION" | cut -d '.' -f 1)
 DEB_FILE="vserver_arm64_${MAJOR_VERSION}_lin.deb"
 # Download the specified VERSION of the V4RB for macOS
 curl "https://valentina-db.com/download/prev_releases/$VERSION/lin_arm_64/$DEB_FILE" -o $DEB_FILE
-# Install the package
-sudo apt install ./$DEB_FILE
+# The package post-install script requires administrator credentials on a first
+# install. Feed disposable test credentials through stdin so this can run in CI.
+ADMIN_USERNAME="vserver_ci_admin"
+ADMIN_PASSWORD="vserver-ci-$RANDOM-$RANDOM-$RANDOM"
+printf '%s\n%s\n' "$ADMIN_USERNAME" "$ADMIN_PASSWORD" | sudo apt install -y "./$DEB_FILE"
+unset ADMIN_USERNAME ADMIN_PASSWORD
 # Wait for the first run to create the INI file, then restart
 sleep 10
 sudo systemctl restart vserver
