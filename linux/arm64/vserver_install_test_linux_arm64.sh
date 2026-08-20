@@ -62,7 +62,7 @@ if [ "$log_found" = false ]; then
     exit 1
 fi
 # Extract the Valentina Version from the log file using awk
-VAL_VERSION=$(sudo awk -F ': ' '/vServer version/{print $2}' $VSERVER_LOG_FILE | xargs)
+VAL_VERSION=$(sudo awk -F ': ' '/vServer version/{print $2}' "$VSERVER_LOGS_DIR/$VSERVER_LOG_FILE" | xargs)
 echo "Valentina Version: $VAL_VERSION"
 echo "Expected Version: $VERSION"
 # Compare the extracted version with the passed parameter
