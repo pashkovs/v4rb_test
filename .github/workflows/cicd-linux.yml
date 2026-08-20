@@ -20,6 +20,17 @@ jobs:
         name: Run Script
         run: linux/amd64/v4rb_install_test_linux_amd64.sh ${{ github.event.inputs.version }}
 
+  vpython_install_test_linux_64:
+    name: vpython_install_test_linux_64
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Run Script
+        run: linux/amd64/vpython_install_test_linux_amd64.sh ${{ github.event.inputs.version }}
+
   vserver_install_test_linux_64:
     name: vserver_install_test_linux_64
     runs-on: ubuntu-latest
